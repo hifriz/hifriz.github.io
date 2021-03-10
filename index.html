@@ -1,13 +1,13 @@
 <html>
 
 <head>
-    <title>Financial Dashboard</title>
+    <title>High Frequency Visualization</title>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/viz.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" href="https://avatars3.githubusercontent.com/u/6226470?s=280&v=4" type="image/x-icon">
+    <link rel="icon" href="./data/logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -21,6 +21,7 @@
 
         <div id="search">
             <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search by stocks symbol">
+            <div id="stockList"></div>
 
         </div>
 
