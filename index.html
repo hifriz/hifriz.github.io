@@ -1,3 +1,51 @@
-Hello :)
+<html>
 
-how are you?
+<head>
+    <title>Financial Dashboard</title>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/viz.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="https://avatars3.githubusercontent.com/u/6226470?s=280&v=4" type="image/x-icon">
+</head>
+
+<body>
+    <script>
+        //alert("Select from the dropdown lists to display a visualization");
+    </script>
+    <div id="panel-menu">
+        <div id="menu-icon">
+            <img src="./data/logo.png" alt="hifriz icon" class="menu-icon">
+        </div>
+
+        <div id="search">
+            <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search by stocks symbol">
+
+        </div>
+
+        <div id="contracts" class="menu">
+            <button onclick="drawSPPVCV()">Most active Settlement price & Put/Call volume</button>
+        </div>
+
+        <div id="contracts" class="menu">
+            <button onclick="drawNMA()">Next Future Moving Average</button>
+        </div>
+
+        <div id="contracts" class="menu">
+            <button onclick="drawMAMA()">Most Active Moving Average</button>
+        </div>
+
+        <div id="contracts" class="menu">
+            <button onclick="drawvol()">Volatility</button>
+        </div>
+
+    </div>
+    <div id="overview-panel">
+        <div style="height: 100%; width: 100%; float: left;">
+            <div id="overview-viz" style="height: 100%; width: 100%;"></div>
+        </div>
+    </div>
+</body>
+
+</html>
