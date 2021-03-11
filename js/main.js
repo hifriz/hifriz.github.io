@@ -13,6 +13,7 @@ function creatingMenu(companies) {
     };
 };
 
+// add name to list
 function addToList(stockName) {
     console.log(stockName);
 };
