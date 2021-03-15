@@ -4,7 +4,6 @@ let all_companies = [{ "Name": "3M Company", "Sector": "Industrials", "Symbol": 
 function creatingMenu(companies) {
     let list = document.getElementById("stockList");
     companies.forEach(function(element) {
-        console.log(element["Name"]);
         var item = element["Name"] + " -- " + element["Symbol"];
         var button = document.createElement("button");
         button.innerHTML = item;
@@ -14,9 +13,7 @@ function creatingMenu(companies) {
 };
 
 // add name to list
-function addToList(stockName) {
-    console.log(stockName);
-};
+function addToList(stockName) {};
 
 // search for stocks
 function searchStocks() {
@@ -30,8 +27,9 @@ function viewDetails() {
 };
 
 // filter the date
-function dateFilter() {
-
+function dateFilter(e) {
+    console.log(e.target.value);
 };
+
 
 creatingMenu(all_companies);

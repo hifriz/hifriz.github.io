@@ -2,7 +2,6 @@
 
 <head>
     <title>High Frequency Visualization</title>
-    <script type="module" src="js/main.js"></script>
     <script type="module" src="js/viz.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
@@ -25,8 +24,9 @@
 
         </div>
 
-        <div id="contracts" class="menu">
-            <button onclick="drawMAMA()">Most Active Moving Average</button>
+        <div id="date">
+            <input type="date" id="tradeDate" name="tradeDate" min="2018-01-01" max="2020-12-31" onchange="dateFilter(event)">
+            <button onclick="dateFilter()">Submit</button>
         </div>
 
         <div id="detailed">
@@ -39,6 +39,10 @@
             <div id="overview-viz" style="height: 100%; width: 100%;"></div>
         </div>
     </div>
+
+
+
+    <script src="js/main.js"></script>
 </body>
 
 </html>
