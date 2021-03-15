@@ -20,25 +20,17 @@
         </div>
 
         <div id="search">
-            <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search by stocks symbol">
+            <input type="text" id="searchBar" onkeyup="searchStocks()" placeholder="Search by stocks symbol">
             <div id="stockList"></div>
 
-        </div>
-
-        <div id="contracts" class="menu">
-            <button onclick="drawSPPVCV()">Most active Settlement price & Put/Call volume</button>
-        </div>
-
-        <div id="contracts" class="menu">
-            <button onclick="drawNMA()">Next Future Moving Average</button>
         </div>
 
         <div id="contracts" class="menu">
             <button onclick="drawMAMA()">Most Active Moving Average</button>
         </div>
 
-        <div id="contracts" class="menu">
-            <button onclick="drawvol()">Volatility</button>
+        <div id="detailed">
+            <button onclick="viewDetails()">View in details</button>
         </div>
 
     </div>
