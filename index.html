@@ -21,20 +21,26 @@
         <div id="search">
             <input type="text" id="searchBar" onkeyup="searchStocks()" placeholder="Search by stocks symbol">
             <div id="stockList"></div>
+        </div>
 
+
+        <div style="text-align: left; margin-left: 10%; font-size: 11px; margin-top: 20px;">Selected Stocks:</div>
+        <div id="selected-assets">
+            <!-- <div class="added-stock">
+                <button class="cancel-box">x</button> hello
+            </div> -->
         </div>
 
         <div id="date">
             <input type="date" id="tradeDate" name="tradeDate" min="2018-01-01" max="2020-12-31" onchange="dateFilter(event)">
-            <button onclick="dateFilter()">Submit</button>
         </div>
 
         <div id="detailed">
-            <button onclick="viewDetails()">View in details</button>
+            <button id="detailed-button" onclick="viewDetails()">View in details</button>
         </div>
 
     </div>
-    <div id="overview-panel">
+    <div id="main-panel">
         <div style="height: 100%; width: 100%; float: left;">
             <div id="overview-viz" style="height: 100%; width: 100%;"></div>
         </div>

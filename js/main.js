@@ -7,18 +7,36 @@ function creatingMenu(companies) {
         var item = element["Name"] + " -- " + element["Symbol"];
         var button = document.createElement("button");
         button.innerHTML = item;
-        button.addEventListener("click", addToList(item));
+        button.className = "stock";
+        button.onclick = addToList(item);
+        button.style.display = "none";
         list.appendChild(button);
     });
 };
 
 // add name to list
-function addToList(stockName) {};
+function addToList(stockName) {
+    console.log(stockName);
+};
 
 // search for stocks
 function searchStocks() {
-    let inputElement = document.getElementById("searchBar");
-    let filter = inputElement.value.toUpperCase();
+    let inputElement = document.getElementsByClassName("stock");
+    let searchQuery = document.getElementById("searchBar");
+    let filter = searchQuery.value.toUpperCase();
+
+    for (i = 0; i < inputElement.length; i++) {
+        if (inputElement[i].innerHTML.indexOf(filter) > -1) {
+            inputElement[i].style.display = "";
+        } else {
+            inputElement[i].style.display = "none";
+        };
+    };
+    if (searchQuery.value.length == 0) {
+        document.getElementById("stockList").style.display = "none";
+    } else {
+        document.getElementById("stockList").style.display = "";
+    };
 };
 
 // view details

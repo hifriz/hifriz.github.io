@@ -1,7 +1,3 @@
-label {
-    display: block;
-}
-
 .menu-icon {
     height: 15%;
     width: 40%;
@@ -10,27 +6,33 @@ label {
     margin-right: auto;
 }
 
-.underlying-asset {
-    width: auto;
-    height: auto;
-    padding-left: 2%;
-    padding-right: 2%;
+.stock {
+    background-color: #faf9f9;
+    font-size: 11px;
+    width: 80%;
+    border: 0.5px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
 }
 
-.derivative-contract {
+.cancel-box {
+    background-color: #faf9f9;
+    font-size: 10px;
+    border: 0.5px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
+}
+
+.added-stock {
     width: 20%;
-    height: 20%;
-}
-
-.menu {
-    position: relative;
-    top: 40%;
-    transform: translateY(-160%);
-    color: #000000;
-    padding-left: 10%;
-    padding-right: 2%;
-    padding-top: 4%;
-    padding-bottom: 4%;
+    background-color: #faf9f9;
+    font-size: 10px;
+    border: 0.5px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
 }
 
 #panel-menu {
@@ -40,32 +42,16 @@ label {
     background-color: #ffffff;
 }
 
-#overview-panel {
+#main-panel {
     width: 85%;
     height: 100%;
     float: left;
     background-color: #faf9f9;
 }
 
-#overview-viz {
-    float: left;
-}
-
-#score-viz1 {
-    float: left;
-    width: 100%;
-    height: 50%;
-}
-
-#score-viz2 {
-    float: left;
-    width: 100%;
-    height: 50%;
-}
-
 #searchBar {
     display: '';
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     margin-top: 16px;
     margin-left: 10%;
     background-image: url('/data/search.png');
@@ -86,4 +72,37 @@ label {
     /* Add a grey border */
     text-align: center;
     /* Add some space below the input */
+}
+
+#tradeDate {
+    margin-top: 80px;
+    background-color: #faf9f9;
+    font-size: 11px;
+    width: 80%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
+}
+
+#detailed-button {
+    margin-top: 16px;
+    background-color: #3366ff;
+    font-size: 11px;
+    width: 80%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
+    color: #ffffff;
+}
+
+#selected-assets {
+    background-color: #ffffff;
+    border: none;
+    font-size: 11px;
+    width: 80%;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
 }
