@@ -16,23 +16,43 @@
     margin-left: 10%;
 }
 
+.stock:hover {
+    background-color: #777777;
+    color: #ffffff;
+}
+
 .cancel-box {
     background-color: #faf9f9;
-    font-size: 10px;
+    font-size: 8px;
     border: 0.5px solid #ddd;
     border-radius: 5px;
     text-align: center;
     margin-left: 10%;
 }
 
+.cancel-box:hover {
+    background-color: #fd0404;
+    color: #ffffff;
+}
+
 .added-stock {
     width: 20%;
     background-color: #faf9f9;
-    font-size: 10px;
+    font-size: 8px;
     border: 0.5px solid #ddd;
     border-radius: 5px;
     text-align: center;
     display: inline-block;
+}
+
+.stockViz {
+    background-color: #ffffff;
+    font-size: 11px;
+    width: 80%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10%;
 }
 
 #panel-menu {
@@ -83,6 +103,7 @@
     border-radius: 5px;
     text-align: center;
     margin-left: 10%;
+    color: rgb(179, 180, 180);
 }
 
 #detailed-button {
@@ -99,9 +120,9 @@
 
 #selected-assets {
     background-color: #ffffff;
-    border: none;
     font-size: 11px;
     width: 80%;
+    border: 1px solid #ddd;
     border-radius: 5px;
     text-align: center;
     margin-left: 10%;
