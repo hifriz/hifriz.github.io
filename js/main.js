@@ -71,7 +71,7 @@ function updateSelectedStocks() {
             cancelButton.innerText = 'x';
             cancelButton.className = "cancel-box";
             cancelButton.onclick = function() { removeFromList(element) };
-            addedstock.innerText = element.split("--")[1];
+            addedstock.innerText = element.split(" -- ")[1];
             addedstock.className = "added-stock";
 
             addedstock.appendChild(cancelButton);
@@ -93,20 +93,37 @@ function dateFilter(e) {
     let validation = (2021 > year) && (year > 2016) && (13 > month) && (month > 01) && (31 > day) && (day > 01);
     if (validation) {
         date = innerDate;
-        viewOverview(date);
+        viewOverview(date, all_companies);
     };
 
 };
 
 // view overview
-function viewOverview(date) {
+function viewOverview(date, companies) {
+    let mainPanel = document.getElementById('main-panel');
+    companies.forEach(
+        function(element) {
+            let stockViz = document.createElement("div");
+            stockViz.id = element["Symbol"];
+            stockViz.className = "stockViz";
+            stockViz.innerText = element["Symbol"];
 
+            mainPanel.appendChild(stockViz);
+        }
+    );
+};
+
+// draw overview
+function drawOverview(date, companyId) {
+    let mockPriceChange = [];
 };
 
 // view details
-function viewDetails() {
+function viewDetails(selectedStocks, date) {
 
 };
 
 // run the app
 creatingMenu(all_companies);
+// run the overview on default date 
+viewOverview(date, all_companies);
