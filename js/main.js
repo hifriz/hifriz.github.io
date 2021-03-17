@@ -109,13 +109,28 @@ function viewOverview(date, companies) {
             stockViz.innerText = element["Symbol"];
 
             mainPanel.appendChild(stockViz);
+
+            drawOverview(date, element["Symbol"]);
         }
     );
 };
 
 // draw overview
 function drawOverview(date, companyId) {
-    let mockPriceChange = [];
+    let time = [];
+    let mockPriceChange = Array.from({ length: 5000 }, () => Math.floor(-10 * Math.random() + 5));
+    let y = Array.from({ length: 5000 }, () => 1);
+
+    let data = [{
+        z: mockPriceChange,
+        x: time,
+        y: y,
+        type: 'heatmap',
+        hoverongaps: false,
+    }];
+
+    Plotly.newPlot(companyId, data);
+
 };
 
 // view details
