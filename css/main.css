@@ -60,6 +60,25 @@
     display: inline-block;
 }
 
+.stockViz .stockVizText {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: auto;
+    left: auto;
+    margin-left: -60px;
+}
+
+.stockViz:hover .stockVizText {
+    visibility: visible;
+}
+
 #panel-menu {
     width: 15%;
     height: 100%;

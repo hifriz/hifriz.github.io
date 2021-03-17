@@ -104,10 +104,14 @@ function viewOverview(date, companies) {
     companies.forEach(
         function(element) {
             let stockViz = document.createElement("div");
+            let stockVizText = document.createElement("div");
+            stockVizText.className = "stockVizText";
+            stockVizText.innerText = element["Name"];
             stockViz.id = element["Symbol"];
             stockViz.className = "stockViz";
-            stockViz.innerText = element["Symbol"];
+            stockViz.onclick = function() { addToList(element["Name"] + " -- " + element["Symbol"]) };
 
+            stockViz.appendChild(stockVizText);
             mainPanel.appendChild(stockViz);
         }
     );
@@ -116,10 +120,12 @@ function viewOverview(date, companies) {
 // draw overview
 function drawOverview(date, companies) {
     let items = document.getElementsByClassName("stockViz");
-    let data = [
-        [0.93672514229059, 1.7399895604132505, 1.2878068233683115, -1.9292655205953353, 0.9940279638826732, -2.451663538393224, -2.150576427454443, -0.12048667131625823, -1.211602068939387, -0.07769958249761677, -0.06626340372038886, 1.3414414369332661, -2.4436071813366214, -2.114999720983451, -1.363349986078587, 1.4091112327693396, -1.6524852979975413, 2.4395907833846593, -1.0114757025848249, -1.079091338456501]
-    ];
     for (i = 0; i < items.length; i++) {
+
+
+        // this data is sample data that is generated for showing application of our viz
+        let data = [Array.from({ length: 40 }, () => Math.floor(Math.random() * 5 - 2.5))];
+
         // Set some base properties.
         // Some come from an options object
         // pass when `Matrix` is called.
@@ -131,7 +137,7 @@ function drawOverview(date, companies) {
             endColor = "#33cc33"
 
         // empty the container
-        // items[i].innerHTML = '';
+        // items[i].innerText = '';
 
         // Find our max and min values
         const maxValue = d3.max(data, layer => {
