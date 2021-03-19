@@ -7,6 +7,7 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="./data/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -14,8 +15,8 @@
         //alert("Select from the dropdown lists to display a visualization");
     </script>
     <div id="panel-menu">
-        <div id="menu-icon">
-            <img src="./data/logo.png" alt="hifriz icon" class="menu-icon">
+        <div id="menu-icon" style="width: 50%; margin-left: 25%;">
+            <img src="./data/logo.png" alt="hifriz icon" class="img">
         </div>
 
         <div id="search">
@@ -24,9 +25,16 @@
         </div>
 
 
-        <div style="text-align: left; margin-left: 10%; font-size: 11px; margin-top: 20px;">Selected Stocks:</div>
+        <div style="text-align: left; margin-left: 10%; font-size: 0.8vw; margin-top: 20%;">Selected Stocks:</div>
         <div id="selected-assets">
             &nbsp;
+        </div>
+
+        <div>
+            <input type="radio" id="marketCap" name="marketCap" value="Market Capitalization">
+            <label for="marketCap" class="sort">Market Capitalization</label>
+            <input type="radio" class="margin-left: 10%;" class="margin-left: 10%;" id="volume" name="volume" value="Volume">
+            <label for="volume" class="sort">Volume</label>
         </div>
 
         <div id="date">

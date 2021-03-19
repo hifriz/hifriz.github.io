@@ -1,17 +1,13 @@
-.menu-icon {
-    height: 15%;
-    width: 40%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.img {
+    max-width: 100%;
 }
 
 .stock {
     background-color: #faf9f9;
-    font-size: 11px;
+    font-size: 0.8vw;
     width: 80%;
     border: 0.5px solid #ddd;
-    border-radius: 5px;
+    border-radius: 5%;
     text-align: center;
     margin-left: 10%;
 }
@@ -23,9 +19,9 @@
 
 .cancel-box {
     background-color: #faf9f9;
-    font-size: 8px;
+    font-size: 0.6vw;
     border: 0.5px solid #ddd;
-    border-radius: 5px;
+    border-radius: 5%;
     text-align: center;
     margin-left: 10%;
 }
@@ -38,45 +34,61 @@
 .added-stock {
     width: 20%;
     background-color: #faf9f9;
-    font-size: 8px;
-    border: 0.5px solid #ddd;
-    border-radius: 5px;
+    font-size: 0.7vw;
+    border: 0.5% solid #ddd;
+    border-radius: 5%;
     text-align: center;
     display: inline-block;
 }
 
 .stockViz {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #ffffff;
-    font-size: 11px;
-    height: 20px;
-    width: 55px;
+    height: 2%;
+    width: 8%;
     border: 1px solid #ddd;
-    border-radius: 2px;
+    border-radius: 2%;
     text-align: center;
     display: inline-block;
 }
 
 .stockViz .stockVizText {
     visibility: hidden;
-    width: 120px;
     background-color: black;
+    font-size: 0.8vw;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
+    border-radius: 6%;
     position: absolute;
     z-index: 1;
-    bottom: auto;
-    left: auto;
-    margin-left: -60px;
+    top: 100%;
+    left: 50%;
+}
+
+.stockViz .stockVizText::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5%;
+    border-width: 5%;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
 }
 
 .stockViz:hover .stockVizText {
     visibility: visible;
+}
+
+.sort {
+    background-color: #ffffff;
+    font-size: 0.8vw;
+    width: 80%;
+    text-align: center;
 }
 
 #panel-menu {
@@ -95,21 +107,20 @@
 
 #searchBar {
     display: '';
-    margin-bottom: 10px;
-    margin-top: 16px;
+    margin-bottom: 10%;
+    margin-top: 16%;
     margin-left: 10%;
     background-image: url('/data/search.png');
     /* Add a search icon to input */
-    background-position: 0px 0px;
+    background-position: left;
     /* Position the search icon */
     background-repeat: no-repeat;
-    background-size: 9% 90%;
+    background-size: contain;
     /* Do not repeat the icon image */
     width: 80%;
     /* Full-width */
-    font-size: 11px;
+    font-size: 0.8vw;
     /* Increase font-size */
-    padding: 2px 2px 2px 2px;
     /* Add some padding */
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -119,9 +130,9 @@
 }
 
 #tradeDate {
-    margin-top: 80px;
+    margin-top: 80%;
     background-color: #faf9f9;
-    font-size: 11px;
+    font-size: 0.8vw;
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -133,7 +144,7 @@
 #detailed-button {
     margin-top: 16px;
     background-color: #3366ff;
-    font-size: 11px;
+    font-size: 0.9vw;
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -144,7 +155,7 @@
 
 #selected-assets {
     background-color: #ffffff;
-    font-size: 11px;
+    font-size: 0.8vw;
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;

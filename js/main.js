@@ -107,6 +107,7 @@ function viewOverview(date, companies) {
             let stockVizText = document.createElement("div");
             stockVizText.className = "stockVizText";
             stockVizText.innerText = element["Name"];
+            stockVizText.id = element["Symbol"] + '-text';
             stockViz.id = element["Symbol"];
             stockViz.className = "stockViz";
             stockViz.onclick = function() { addToList(element["Name"] + " -- " + element["Symbol"]) };
@@ -130,12 +131,11 @@ function drawOverview(date, companies) {
         // Some come from an options object
         // pass when `Matrix` is called.
         const margin = { top: 0, right: 0, bottom: 0, left: 0 },
-            width = 55,
-            height = 20,
+            width = '100%',
+            height = "100%",
             container = '#' + items[i].id,
             startColor = "#ff3333",
-            endColor = "#33cc33"
-
+            endColor = "#33cc33";
         // empty the container
         // items[i].innerText = '';
 
@@ -159,11 +159,15 @@ function drawOverview(date, companies) {
         const svg = d3
             .select(container)
             .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
+            .attr("id", container + i)
+            .attr("width", width)
+            .attr("height", height)
             .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .attr("transform", "translate(0,0)")
 
+        let current_box = document.getElementById(container + i);
+        const height_num = current_box.clientHeight,
+            width_num = current_box.clientWidth;
         // Add a background to the SVG
         const background = svg
             .append("rect")
@@ -175,12 +179,12 @@ function drawOverview(date, companies) {
         const x = d3.scale
             .ordinal()
             .domain(d3.range(numcols))
-            .rangeBands([0, width])
+            .rangeBands([0, width_num])
 
         const y = d3.scale
             .ordinal()
             .domain(d3.range(numrows))
-            .rangeBands([0, height])
+            .rangeBands([0, height_num])
 
         // This scale in particular will
         // scale our colors from the start
@@ -238,4 +242,5 @@ function viewDetails(selectedStocks, date) {
 creatingMenu(all_companies);
 // run the overview on default date 
 viewOverview(date, all_companies);
+console.log(document.getElementById("AAPL-text").parentElement);
 drawOverview(date, all_companies);
