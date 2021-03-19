@@ -20,13 +20,23 @@ function creatingMenu(companies) {
     });
 };
 
+// clean menu of stocks after the search
+function cleanMenu() {
+    let inputElements = document.getElementsByClassName("stock");
+    for (i = 0; i < inputElements.length; i++) {
+        inputElements[i].style.display = "none";
+    };
+};
+
 // add name to list
 function addToList(stockName) {
     if (selectedStocks.length == 10) {
         alert("You reached maximum capacity.");
+        cleanMenu();
     } else {
         selectedStocks.push(stockName);
         selectedStocks = [...new Set(selectedStocks)];
+        cleanMenu();
     }
 
     updateSelectedStocks();
@@ -47,7 +57,8 @@ function searchStocks() {
     let filter = searchQuery.value.toUpperCase();
 
     for (i = 0; i < inputElement.length; i++) {
-        if (inputElement[i].innerHTML.indexOf(filter) > -1) {
+        let searchElement = inputElement[i].innerHTML.toUpperCase();
+        if (searchElement.indexOf(filter) > -1) {
             inputElement[i].style.display = "";
         } else {
             inputElement[i].style.display = "none";
