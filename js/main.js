@@ -7,6 +7,10 @@ let selectedStocks = [];
 // selected date
 let date = "2019-01-01";
 
+// range min and max
+let overiewRangeMin = 0;
+let overiewRangeMax = 0;
+
 function creatingMenu(companies) {
     let list = document.getElementById("stockList");
     companies.forEach(function(element) {
@@ -136,7 +140,7 @@ function drawOverview(date, companies) {
 
 
         // this data is sample data that is generated for showing application of our viz
-        let data = [Array.from({ length: 40 }, () => Math.floor(Math.random() * 5 - 2.5))];
+        let data = [Array.from({ length: 1000 }, () => Math.floor(Math.random() * 5 - 2.5))];
 
         // Set some base properties.
         // Some come from an options object
@@ -145,8 +149,9 @@ function drawOverview(date, companies) {
             width = '100%',
             height = "100%",
             container = '#' + items[i].id,
-            startColor = "#ff3333",
-            endColor = "#33cc33";
+            startColor = "#b30000",
+            middleColor = "#ffffff",
+            endColor = "#00b300";
         // empty the container
         // items[i].innerText = '';
 
@@ -156,11 +161,17 @@ function drawOverview(date, companies) {
                 return d
             })
         })
+
+        // set overview max value
+        if (maxValue > overiewRangeMax) { overiewRangeMax = maxValue };
         const minValue = d3.min(data, layer => {
             return d3.min(layer, d => {
                 return d
             })
         })
+
+        // set overview min value
+        if (minValue < overiewRangeMin) { overiewRangeMin = minValue };
 
         const numrows = data.length
             // assume all subarrays have same length
@@ -202,8 +213,8 @@ function drawOverview(date, companies) {
         // color to the end color.
         const colorMap = d3.scale
             .linear()
-            .domain([minValue, maxValue])
-            .range([startColor, endColor])
+            .domain([minValue, 0.5 * (minValue + maxValue), maxValue])
+            .range([startColor, middleColor, endColor])
 
         // Generate rows and columns and add
         // color fills.
@@ -244,6 +255,136 @@ function drawOverview(date, companies) {
 
 };
 
+// draw legend (id, beginRange, endRange, beginColor, endColor)
+function drawLegend(containerId) {
+
+    var svgWidth = '100%',
+        svgHeight = '50%',
+        x1 = '0%',
+        barWidth = '20%',
+        y1 = '50%',
+        barHeight = '50%',
+        numberSaturation = 200;
+
+    var idGradient = 'legendGradient';
+
+    var svgForLegendStuff = d3.select('#' + containerId).append("svg")
+        .attr("id", "legend")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+
+    //create the empty gradient that we're going to populate later
+    svgForLegendStuff.append("g")
+        .append("defs")
+        .append("linearGradient")
+        .attr("id", idGradient)
+        .attr("x1", "0%")
+        .attr("x2", "0%")
+        .attr("y1", "100%")
+        .attr("y2", "0%"); // x1=0, x2=100%, y1=y2 results in a horizontal gradient
+    // it would have been vertical if x1=x2, y1=0, y2=100%
+    // See 
+    //      http://www.w3.org/TR/SVG/pservers.html#LinearGradients
+    // for more details and fancier things you can do
+    //create the bar for the legend to go into
+    // the "fill" attribute hooks the gradient up to this rect
+
+    svgForLegendStuff.append("rect")
+        .attr("fill", "url(#" + idGradient + ")")
+        .attr("x", x1)
+        .attr("y", y1)
+        .attr("width", barWidth)
+        .attr("height", barHeight)
+        .attr("rx", 2) //rounded corners, of course!
+        .attr("ry", 2);
+
+    // finding the pixel number of the rectangle
+    let current_box = document.getElementById("legend");
+    barHeight = current_box.clientHeight;
+    barWidth = current_box.clientWidth;
+    y1 = barHeight / 2;
+    x1 = barWidth / 4.3;
+
+    console.log(y1);
+
+    //add text on either side of the bar
+
+    svgForLegendStuff.append("text")
+        .attr("font-size", "1vw")
+        .attr("class", "legendText")
+        .attr("text-anchor", "left")
+        .attr("x", x1)
+        .attr("y", 2 * y1)
+        .attr("dy", 0)
+        .text(overiewRangeMin + "%");
+
+    svgForLegendStuff.append("text")
+        .attr("font-size", "1vw")
+        .attr("class", "legendText")
+        .attr("text-anchor", "left")
+        .attr("x", x1)
+        .attr("y", y1 + 0.08 * y1)
+        .attr("dy", 0)
+        .text("+" + overiewRangeMax + "%");
+
+
+    //we go from a somewhat transparent blue/green (hue = 160º, opacity = 0.3) to a fully opaque reddish (hue = 0º, opacity = 1)
+    var hueStart = 0,
+        hueEnd = 120;
+    var opacityStart = 1.0,
+        opacityEnd = 0;
+
+    var saturationStart = 100,
+        saturationEnd = 0;
+    var theHue, rgbString, opacity, p, theSat;
+
+    var deltaPercent = 1 / (numberSaturation);
+    var deltaSat = (saturationEnd - saturationStart) / (numberSaturation / 2);
+    var deltaOpacity = (opacityEnd - opacityStart) / (numberSaturation / 2);
+
+    //kind of out of order, but set up the data here 
+    var theData = [];
+
+    // we are going through the HSL color space from dark red to dark green.
+    for (var i = 1; i <= numberSaturation; i++) {
+        if (i <= numberSaturation / 2) {
+            theHue = hueStart;
+            theSat = saturationStart + deltaSat * i;
+            //the second parameter, set to 1 here, is the saturation
+            // the third parameter is "lightness"    
+            rgbString = d3.hsl(theHue, theSat, 0.35).toString();
+            opacity = opacityStart + deltaOpacity * i;
+            p = 0 + deltaPercent * i;
+        } else {
+            theHue = hueEnd;
+            theSat = theSat - deltaSat * (i - (numberSaturation / 2));
+            //the second parameter, set to 1 here, is the saturation
+            // the third parameter is "lightness"    
+            rgbString = d3.hsl(theHue, theSat, 0.35).toString();
+            opacity = opacityEnd - deltaOpacity * (i - (numberSaturation / 2));
+            p = 0 + deltaPercent * i;
+        };
+
+        theData.push({ "rgb": rgbString, "opacity": opacity, "percent": p });
+    }
+
+    //now the d3 magic (imo) ...
+    var stops = d3.select('#' + idGradient).selectAll('stop')
+        .data(theData);
+
+    stops.enter().append('stop');
+    stops.attr('offset', function(d) {
+            return d.percent;
+        })
+        .attr('stop-color', function(d) {
+            return d.rgb;
+        })
+        .attr('stop-opacity', function(d) {
+            return d.opacity;
+        });
+
+};
+
 // view details
 function viewDetails(selectedStocks, date) {
 
@@ -253,5 +394,6 @@ function viewDetails(selectedStocks, date) {
 creatingMenu(all_companies);
 // run the overview on default date 
 viewOverview(date, all_companies);
-console.log(document.getElementById("AAPL-text").parentElement);
 drawOverview(date, all_companies);
+// run the drawLegend with its function for id = "overview-legend"
+drawLegend("overview-legend");

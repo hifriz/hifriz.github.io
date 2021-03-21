@@ -48,8 +48,8 @@
     margin-left: auto;
     margin-right: auto;
     background-color: #ffffff;
-    height: 2%;
-    width: 7%;
+    height: 1.8%;
+    width: 7.9%;
     border: 1.5px solid #ddd;
     border-radius: 2%;
     text-align: center;
@@ -99,7 +99,14 @@
 }
 
 #main-panel {
-    width: 85%;
+    width: 80%;
+    height: 100%;
+    float: left;
+    background-color: #faf9f9;
+}
+
+#overview-legend {
+    width: 5%;
     height: 100%;
     float: left;
     background-color: #faf9f9;
