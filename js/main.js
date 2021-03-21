@@ -122,6 +122,9 @@ window.onclick = function(event) {
             var openDropdown = dropdowns[i];
             if (openDropdown.classList.contains('show')) {
                 openDropdown.classList.remove('show');
+                let arrow = document.getElementById("arrow-direction");
+                arrow.className = "arrow down";
+                arrowDown = true;
             }
         }
     }
