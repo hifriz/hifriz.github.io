@@ -5,7 +5,7 @@ let all_companies = [{ "Name": "3M Company", "Sector": "Industrials", "Symbol": 
 let selectedStocks = [];
 
 // selected date
-let date = "2019-01-01";
+let date = "0000-00-00";
 
 // range min and max
 let overiewRangeMin = 0;
@@ -144,10 +144,17 @@ function dateFilter(e) {
     let day = splitDate[2];
 
     // check the validation of the date
-    let validation = (2021 > year) && (year > 2016) && (13 > month) && (month > 01) && (31 > day) && (day > 01);
+    let validation = (2021 > year) && (year > 2016) && (13 > month) && (month >= 01) && (31 >= day) && (day >= 01);
+
+    console.log(innerDate);
+
     if (validation) {
         date = innerDate;
         viewOverview(date, all_companies);
+    } else {
+        alert("Please enter the valid date");
+        let inputDate = document.getElementById("tradeDate");
+        inputDate.value = "";
     };
 
 };
@@ -425,8 +432,16 @@ function drawLegend(containerId) {
 };
 
 // view details
-function viewDetails(selectedStocks, date) {
-
+function viewDetails() {
+    // check the date and stocks to show the detailed
+    validDate = !(date == "0000-00-00");
+    validStocks = !(selectedStocks.length == 0);
+    if (validDate && validStocks) {
+        // do the details
+    } else {
+        if (!validDate) { alert("Please add valid date.") }
+        if (!validStocks) { alert("Please select at least one stock.") }
+    };
 };
 
 // run the app
