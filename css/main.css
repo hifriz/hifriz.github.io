@@ -10,6 +10,7 @@
     border-radius: 5%;
     text-align: center;
     margin-left: 10%;
+    font-family: 'Oswald';
 }
 
 .stock:hover {
@@ -39,6 +40,7 @@
     border-radius: 5%;
     text-align: center;
     display: inline-block;
+    font-family: 'Oswald';
 }
 
 .stockViz {
@@ -60,6 +62,7 @@
     visibility: hidden;
     background-color: black;
     font-size: 0.8vw;
+    font-family: 'Oswald';
     color: #fff;
     text-align: center;
     border-radius: 6%;
@@ -84,11 +87,64 @@
     visibility: visible;
 }
 
-.sort {
+.dropdown-sort {
     background-color: #ffffff;
     font-size: 0.8vw;
+    font-family: 'Oswald';
     width: 80%;
-    text-align: center;
+    text-align: left;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+.sortBtn {
+    background-color: #faf9f9;
+    font-size: 0.8vw;
+    font-family: 'Oswald';
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 2%;
+    float: right;
+    margin: auto;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.dropdown-content {
+    display: none;
+}
+
+.dropdown-item {
+    font-size: 0.8vw;
+    font-family: 'Oswald';
+    width: 100%;
+    background-color: #ffffff;
+    font-size: 0.8vw;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ddd;
+}
+
+.dropdown-item:hover {
+    background-color: #b9b9b9;
+}
+
+.show {
+    display: block;
 }
 
 #panel-menu {
@@ -127,6 +183,7 @@
     width: 80%;
     /* Full-width */
     font-size: 0.8vw;
+    font-family: 'Oswald';
     /* Increase font-size */
     /* Add some padding */
     border: 1px solid #ddd;
@@ -140,6 +197,7 @@
     margin-top: 80%;
     background-color: #faf9f9;
     font-size: 0.8vw;
+    font-family: 'Oswald';
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -152,6 +210,7 @@
     margin-top: 16px;
     background-color: #3366ff;
     font-size: 0.9vw;
+    font-family: 'Oswald';
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -163,6 +222,7 @@
 #selected-assets {
     background-color: #ffffff;
     font-size: 0.8vw;
+    font-family: 'Oswald';
     width: 80%;
     border: 1px solid #ddd;
     border-radius: 5px;

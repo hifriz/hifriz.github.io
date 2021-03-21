@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" href="./data/logo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 </head>
 
 <body>
@@ -25,17 +26,19 @@
         </div>
 
 
-        <div style="text-align: left; margin-left: 10%; font-size: 0.8vw; margin-top: 20%;">Selected Stocks:</div>
+        <div style="text-align: left; margin-left: 10%; font-size: 0.8vw; margin-top: 20%; font-family: 'Oswald';">Selected Stocks:</div>
         <div id="selected-assets">
             &nbsp;
         </div>
 
-        <div>
-            <input type="radio" id="marketCap" name="marketCap" value="Market Capitalization">
-            <label for="marketCap" class="sort">Market Capitalization</label>
-            <input type="radio" class="margin-left: 10%;" class="margin-left: 10%;" id="volume" name="volume" value="Volume">
-            <label for="volume" class="sort">Volume</label>
+        <div class="dropdown-sort">
+            <button class="sortBtn" onclick="showSortCriteria()">Sort by <i id="arrow-direction" class="arrow down"></i></button>
+            <div id="sort-content" class="dropdown-content">
+                <button value=" Market Capitalization" class="dropdown-item">Market Capitalization</button>
+                <button value="Volume" class="dropdown-item">Volume</button>
+            </div>
         </div>
+
 
         <div id="date">
             <input type="date" id="tradeDate" name="tradeDate" min="2018-01-01" max="2020-12-31" onchange="dateFilter(event)">
