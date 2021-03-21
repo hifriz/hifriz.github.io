@@ -96,6 +96,42 @@ function updateSelectedStocks() {
     );
 };
 
+
+// show sort criteria
+let arrowDown = true;
+
+function showSortCriteria() {
+    let arrow = document.getElementById("arrow-direction");
+    document.getElementById("sort-content").classList.toggle("show");
+
+    if (arrowDown) {
+        arrow.className = "arrow up";
+        arrowDown = false;
+    } else {
+        arrow.className = "arrow down";
+        arrowDown = true;
+    }
+};
+
+// remove the sort menu if we click on the screen 
+window.onclick = function(event) {
+    if (!event.target.matches('.sortBtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+// when we choose the sort criteria
+function sortStocks(criteria) {
+    console.log(criteria);
+};
+
 // filter the date
 function dateFilter(e) {
     let innerDate = e.target.value;
@@ -140,7 +176,7 @@ function drawOverview(date, companies) {
 
 
         // this data is sample data that is generated for showing application of our viz
-        let data = [Array.from({ length: 1000 }, () => Math.floor(Math.random() * 5 - 2.5))];
+        let data = [Array.from({ length: 100 }, () => Math.floor(Math.random() * 5 - 2.5))];
 
         // Set some base properties.
         // Some come from an options object
@@ -305,12 +341,11 @@ function drawLegend(containerId) {
     y1 = barHeight / 2;
     x1 = barWidth / 4.3;
 
-    console.log(y1);
-
     //add text on either side of the bar
 
     svgForLegendStuff.append("text")
         .attr("font-size", "1vw")
+        .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
         .attr("x", x1)
@@ -320,6 +355,7 @@ function drawLegend(containerId) {
 
     svgForLegendStuff.append("text")
         .attr("font-size", "1vw")
+        .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
         .attr("x", x1)

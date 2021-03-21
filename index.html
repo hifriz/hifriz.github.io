@@ -34,8 +34,8 @@
         <div class="dropdown-sort">
             <button class="sortBtn" onclick="showSortCriteria()">Sort by <i id="arrow-direction" class="arrow down"></i></button>
             <div id="sort-content" class="dropdown-content">
-                <button value=" Market Capitalization" class="dropdown-item">Market Capitalization</button>
-                <button value="Volume" class="dropdown-item">Volume</button>
+                <button value=" Market Capitalization" class="dropdown-item" onclick="sortStocks(this.value)">Market Capitalization</button>
+                <button value="Volume" class="dropdown-item" onclick="sortStocks(this.value)">Volume</button>
             </div>
         </div>
 
