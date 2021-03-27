@@ -230,3 +230,23 @@
     text-align: center;
     margin-left: 10%;
 }
+
+#lob-detailed {
+    float: left;
+    background-color: #faf9f9;
+}
+
+#assetLiquidity {
+    float: left;
+    background-color: #faf9f9;
+}
+
+#liquidityCorrelation {
+    float: left;
+    background-color: #faf9f9;
+}
+
+#assetCorrMarket {
+    float: left;
+    background-color: #faf9f9;
+}
