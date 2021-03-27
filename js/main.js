@@ -11,6 +11,18 @@ let date = "0000-00-00";
 let overiewRangeMin = 0;
 let overiewRangeMax = 0;
 
+function createMainPanel() {
+    let body = document.getElementsByTagName("BODY")[0];
+    let mainPanel = document.createElement("div");
+    let overviewLegend = document.createElement("div");
+
+    mainPanel.id = "main-panel";
+    overviewLegend.id = "overview-legend";
+
+    body.appendChild(mainPanel);
+    body.appendChild(overviewLegend);
+};
+
 function creatingMenu(companies) {
     let list = document.getElementById("stockList");
     companies.forEach(function(element) {
@@ -137,20 +149,22 @@ function sortStocks(criteria) {
 
 // filter the date
 function dateFilter(e) {
+
     let innerDate = e.target.value;
     let splitDate = innerDate.split("-");
     let year = splitDate[0];
     let month = splitDate[1];
     let day = splitDate[2];
 
+    console.log(innerDate);
+
     // check the validation of the date
     let validation = (2021 > year) && (year > 2016) && (13 > month) && (month >= 01) && (31 >= day) && (day >= 01);
-
-    console.log(innerDate);
 
     if (validation) {
         date = innerDate;
         viewOverview(date, all_companies);
+        drawOverview(date, all_companies);
     } else {
         alert("Please enter the valid date");
         let inputDate = document.getElementById("tradeDate");
@@ -162,6 +176,9 @@ function dateFilter(e) {
 // view overview
 function viewOverview(date, companies) {
     let mainPanel = document.getElementById('main-panel');
+    // remove all the stocks in the main panel
+    mainPanel.innerHTML = "";
+
     companies.forEach(
         function(element) {
             let stockViz = document.createElement("div");
@@ -186,13 +203,13 @@ function drawOverview(date, companies) {
 
 
         // this data is sample data that is generated for showing application of our viz
-        let data = [Array.from({ length: 100 }, () => Math.floor(Math.random() * 5 - 2.5))];
+        let data = [Array.from({ length: 50 }, () => Math.floor(Math.random() * 6 - 3))];
 
         // Set some base properties.
         // Some come from an options object
         // pass when `Matrix` is called.
         const margin = { top: 0, right: 0, bottom: 0, left: 0 },
-            width = '100%',
+            width = "100%",
             height = "100%",
             container = '#' + items[i].id,
             startColor = "#b30000",
@@ -348,8 +365,8 @@ function drawLegend(containerId) {
     let current_box = document.getElementById("legend");
     barHeight = current_box.clientHeight;
     barWidth = current_box.clientWidth;
-    y1 = barHeight / 2;
-    x1 = barWidth / 4.3;
+    y1 = 50;
+    x1 = 24;
 
     //add text on either side of the bar
 
@@ -358,8 +375,10 @@ function drawLegend(containerId) {
         .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
-        .attr("x", x1)
-        .attr("y", 2 * y1)
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("x", x1 + '%')
+        .attr("y", 2 * y1 + '%')
         .attr("dy", 0)
         .text(overiewRangeMin + "%");
 
@@ -368,8 +387,10 @@ function drawLegend(containerId) {
         .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
-        .attr("x", x1)
-        .attr("y", y1 + 0.08 * y1)
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("x", x1 + '%')
+        .attr("y", y1 + 0.08 * y1 + '%')
         .attr("dy", 0)
         .text("+" + overiewRangeMax + "%");
 
@@ -437,14 +458,68 @@ function viewDetails() {
     validDate = !(date == "0000-00-00");
     validStocks = !(selectedStocks.length == 0);
     if (validDate && validStocks) {
-        // do the details
+        createDetailPage();
+        drawLOB(date, selectedStocks);
+        drawLiq(date, selectedStocks);
+        drawLiqCorr(date, selectedStocks);
+        drawAssetMarketCorr(date, selectedStocks);
     } else {
         if (!validDate) { alert("Please add valid date.") }
         if (!validStocks) { alert("Please select at least one stock.") }
     };
 };
 
+function createDetailPage() {
+    // remove the main panel to draw the detailed panel
+    let mainPanel = document.getElementById("main-panel");
+    let overviewLegend = document.getElementById("overview-legend");
+
+    mainPanel.remove();
+    overviewLegend.remove();
+
+    // draw the structure of the detailed page
+    let body = document.getElementsByTagName("BODY")[0];
+    let lobDetailed = document.createElement("div");
+    let assetLiquidity = document.createElement("div");
+    let liquidityCorrelation = document.createElement("div");
+    let assetCorrMarket = document.createElement("div");
+
+    lobDetailed.id = "lob-detailed";
+    lobDetailed.style.width = "40%";
+    lobDetailed.style.height = "100%";
+
+    assetLiquidity.id = "assetLiquidity";
+    assetLiquidity.style.width = "45%";
+    assetLiquidity.style.height = "30%";
+
+    liquidityCorrelation.id = "liquidityCorrelation";
+    liquidityCorrelation.style.width = "45%";
+    liquidityCorrelation.style.height = "30%";
+
+    assetCorrMarket.id = "assetCorrMarket";
+    assetCorrMarket.style.width = "45%";
+    assetCorrMarket.style.height = "40%";
+
+    body.appendChild(lobDetailed);
+    body.appendChild(assetLiquidity);
+    body.appendChild(liquidityCorrelation);
+    body.appendChild(assetCorrMarket);
+
+};
+
+
+function drawLOB(date, selectedStocks) {};
+
+function drawLiq(date, selectedStocks) {};
+
+function drawLiqCorr(date, selectedStocks) {};
+
+function drawAssetMarketCorr(date, selectedStocks) {};
+
+
+
 // run the app
+createMainPanel();
 creatingMenu(all_companies);
 // run the overview on default date 
 viewOverview(date, all_companies);
