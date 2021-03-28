@@ -148,6 +148,10 @@
     display: block;
 }
 
+.stockLobViz {
+    background-color: #faf9f9;
+}
+
 #panel-menu {
     width: 15%;
     height: 100%;
