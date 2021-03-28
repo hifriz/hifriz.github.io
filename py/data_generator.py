@@ -31,10 +31,10 @@ def dataGen():
     out = {}
     dates = ["2019-01-03", "2019-01-04", "2019-01-05"]
     for date in dates:
-        for hour in [x for x in range(8,15, 3)]:
-            for minute in [x for x in range(10,15, 3)]:
-                for second in [x for x in range(20,25, 3)]:
-                    for milisecond in [x for x in range(20,40, 5)]:
+        for hour in [x for x in range(8,16)]:
+            for minute in [random.randint(0,59) for x in range(10,60,6)]:
+                for second in [x for x in range(40,41)]:
+                    for milisecond in [x for x in range(20,21)]:
                         out[date + "T" + str(hour) + ":" + str(minute) + ":" + str(second) + "." + str(milisecond)] = {
                             "type":random.choice(["bid", "ask", "cancel"]),
                             "price": random.randint(200,210),
