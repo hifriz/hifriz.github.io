@@ -363,10 +363,14 @@ function drawLegend(containerId, beginRange = overiewRangeMin + '%', endRange = 
         middleColorInner = middleColor,
         endColorInner = endColor;
 
+    let legendDiv = document.getElementById(containerId);
+    let height_num = legendDiv.clientHeight;
+    let width_num = legendDiv.clientWidth;
+
+    //.attr("viewBox", `0 0 ${width_num} ${height_num}`)
     var svg = d3.select('#' + containerId).append("svg")
         .attr("id", "legend")
-        .attr("width", svgWidthInner)
-        .attr("height", svgHeightInner);
+        .attr("viewBox", `0 0 ${0.01*parseInt(svgWidthInner)*width_num} ${0.01*parseInt(svgHeightInner)*height_num}`);
 
     //Append a defs (for definition) element to your SVG
     var defs = svg.append("defs");
@@ -417,7 +421,7 @@ function drawLegend(containerId, beginRange = overiewRangeMin + '%', endRange = 
         .attr("height", barHeightInner)
         .attr("x", x1Inner)
         .attr("y", y1Inner)
-        .style("border-radius", "5px")
+        .attr('rx', '10%')
         .style("fill", "url(#linear-gradient)");
 
     //add text on either side of the bar
