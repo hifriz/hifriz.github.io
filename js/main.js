@@ -338,22 +338,22 @@ function drawOverview(inputDate, companies) {
 };
 
 // draw legend (id, beginRange, endRange, beginColor, endColor)
-function drawLegend(containerId, beginRange = overiewRangeMin, endRange = overiewRangeMax, beginColor = "#00b300", middleColor = "#ffffff", endColor = "#b30000", svgWidth = '100%',
-    svgHeight = '50%', barWidth = '20%', barHeight = '50%', x1 = '0%', y1 = '50%') {
-    var svgWidth = '100%',
-        svgHeight = svgHeight,
-        barWidth = barWidth,
-        barHeight = barHeight,
-        x1 = x1,
-        y1 = y1,
-        startColor = beginColor,
-        middleColor = middleColor,
-        endColor = endColor;
+function drawLegend(containerId, beginRange = overiewRangeMin + '%', endRange = overiewRangeMax + '%', beginColor = "#00b300", middleColor = "#ffffff", endColor = "#b30000", svgWidth = '100%',
+    svgHeight = '50%', barWidth = '20%', barHeight = '50%', x1 = '0%', y1 = '50%', needMiddleColor = true, fontSize = '1vw', legendTitle = "") {
+    var svgWidthInner = svgWidth,
+        svgHeightInner = svgHeight,
+        barWidthInner = barWidth,
+        barHeightInner = barHeight,
+        x1Inner = x1,
+        y1Inner = y1,
+        startColorInner = beginColor,
+        middleColorInner = middleColor,
+        endColorInner = endColor;
 
     var svg = d3.select('#' + containerId).append("svg")
         .attr("id", "legend")
-        .attr("width", svgWidth)
-        .attr("height", svgHeight);
+        .attr("width", svgWidthInner)
+        .attr("height", svgHeightInner);
 
     //Append a defs (for definition) element to your SVG
     var defs = svg.append("defs");
@@ -369,27 +369,42 @@ function drawLegend(containerId, beginRange = overiewRangeMin, endRange = overie
         .attr("x2", "0%")
         .attr("y2", "100%");
 
-    //Set the color for the start (0%)
-    linearGradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", startColor); //light blue
+    if (needMiddleColor) {
+        //Set the color for the start (0%)
+        linearGradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", startColorInner);
 
-    //Set the color for the start (50%)
-    linearGradient.append("stop")
-        .attr("offset", "50%")
-        .attr("stop-color", middleColor); //light blue
+        //Set the color for the start (50%)
+        linearGradient.append("stop")
+            .attr("offset", "50%")
+            .attr("stop-color", middleColorInner);
 
-    //Set the color for the end (100%)
-    linearGradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", endColor); //dark blue
+        //Set the color for the end (100%)
+        linearGradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", endColorInner);
+    } else {
+        //Set the color for the start (100%)
+        linearGradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", endColorInner);
+
+        //Set the color for the start (0%)
+        linearGradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", startColorInner);
+    };
+
+
 
     //Draw the rectangle and fill with gradient
     svg.append("rect")
-        .attr("width", barWidth)
-        .attr("height", barHeight)
-        .attr("x", x1)
-        .attr("y", y1)
+        .attr("width", barWidthInner)
+        .attr("height", barHeightInner)
+        .attr("x", x1Inner)
+        .attr("y", y1Inner)
+        .style("border-radius", "5px")
         .style("fill", "url(#linear-gradient)");
 
     //add text on either side of the bar
@@ -397,28 +412,40 @@ function drawLegend(containerId, beginRange = overiewRangeMin, endRange = overie
     y1 = 50;
     x1 = 24;
     svg.append("text")
-        .attr("font-size", "1vw")
+        .attr("font-size", fontSize)
         .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr("x", x1 + '%')
-        .attr("y", 2 * y1 + '%')
+        .attr("x", 1.1 * barWidthInner.split('%')[0] + '%')
+        .attr("y", (parseInt(y1Inner.split('%')[0]) + parseInt(barHeightInner.split('%')[0])) + '%')
         .attr("dy", 0)
-        .text(beginRange + "%");
+        .text(beginRange);
 
     svg.append("text")
-        .attr("font-size", "1vw")
+        .attr("font-size", fontSize)
         .attr("font-family", "Oswald")
         .attr("class", "legendText")
         .attr("text-anchor", "left")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr("x", x1 + '%')
-        .attr("y", y1 + 0.08 * y1 + '%')
+        .attr("x", 1.1 * barWidthInner.split('%')[0] + '%')
+        .attr("y", (1.02 + 0.007 * selectedStocks.length) * parseInt(y1Inner.split('%')[0]) + '%')
         .attr("dy", 0)
-        .text("+" + endRange + "%");
+        .text(endRange);
+
+    svg.append("text")
+        .attr("font-size", fontSize)
+        .attr("font-family", "Oswald")
+        .attr("class", "legendText")
+        .attr("text-anchor", "left")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("x", 0.3 * parseInt(barWidthInner.split('%')[0]) + '%')
+        .attr("y", 0.9 * parseInt(y1Inner.split('%')[0]) + '%')
+        .attr("dy", 0)
+        .text(legendTitle);
 };
 
 // view details
@@ -784,7 +811,7 @@ function drawLobDetail(name, inputDate = "2019-01-03") {
 
         // drawLegend(containerId, beginRange = "", endRange = "", beginColor = "", endColor = "", svgWidth = '100%', 
         // svgHeight = '50%', barWidth = '20%', barHeight = '50%', x1 = '0%', y1 = '50%')
-        drawLegend(figLegendAsk.id, beginRange = minValue, endRange = maxValue, beginColor = "#adebad", endColor = "#33cc33", barWidth = "90%", barHeight = (25 / 3) * (selectedStocks.length) + (50 / 3) + "%", y1 = '5%');
+        drawLegend(figLegendAsk.id, beginRange = minValue, endRange = maxValue, beginColor = "#adebad", middleColor = "#ffffff", endColor = "#33cc33", svgWidth = '100%', svgHeight = '70%', barWidth = "30%", barHeight = (25 / 3) * (selectedStocks.length) + (50 / 3) + "%", x1 = '0%', y1 = (50 - 4 * selectedStocks.length) + '%', needMiddleColor = false, fontSize = "0.5vw", legendTitle = "Ask");
 
 
         // bid
