@@ -246,7 +246,7 @@ function drawOverview(inputDate, companies) {
 
 
         // this data is sample data that is generated for showing application of our viz
-        let data = [Array.from({ length: 70 }, () => Math.floor(Math.random() * 6 - 3))];
+        let data = [Array.from({ length: 50 }, () => Math.floor(Math.random() * 6 - 3))];
 
         // Set some base properties.
         // Some come from an options object
