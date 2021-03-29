@@ -22,7 +22,8 @@ function readData(inputDate, stockName) {
 
 };
 
-
+// data
+let globalData;
 // list of selected stocks
 let selectedStocks = [];
 
@@ -61,6 +62,9 @@ function creatingMenu(companies) {
 // clean menu of stocks after the search
 function cleanMenu() {
     let inputElements = document.getElementsByClassName("stock");
+    let inputButton = document.getElementById("searchBar");
+
+    inputButton.value = "";
     for (i = 0; i < inputElements.length; i++) {
         inputElements[i].style.display = "none";
     };
@@ -75,10 +79,14 @@ function addToList(stockName) {
         selectedStocks.push(stockName);
         selectedStocks = [...new Set(selectedStocks)];
         cleanMenu();
+        fetchData(stockName);
     }
 
     updateSelectedStocks();
 };
+
+// fetch data when we click on the name
+function fetchData(name) {};
 
 // remove name from list
 function removeFromList(stockName) {
@@ -330,17 +338,17 @@ function drawOverview(inputDate, companies) {
 };
 
 // draw legend (id, beginRange, endRange, beginColor, endColor)
-function drawLegend(containerId, beginRange = "", endRange = "", beginColor = "", endColor = "", svgWidth = '100%',
+function drawLegend(containerId, beginRange = overiewRangeMin, endRange = overiewRangeMax, beginColor = "#00b300", middleColor = "#ffffff", endColor = "#b30000", svgWidth = '100%',
     svgHeight = '50%', barWidth = '20%', barHeight = '50%', x1 = '0%', y1 = '50%') {
     var svgWidth = '100%',
-        svgHeight = '50%',
-        barWidth = '20%',
-        barHeight = '50%',
-        x1 = '0%',
-        y1 = '50%',
-        startColor = "#00b300",
-        middleColor = "#ffffff",
-        endColor = "#b30000";
+        svgHeight = svgHeight,
+        barWidth = barWidth,
+        barHeight = barHeight,
+        x1 = x1,
+        y1 = y1,
+        startColor = beginColor,
+        middleColor = middleColor,
+        endColor = endColor;
 
     var svg = d3.select('#' + containerId).append("svg")
         .attr("id", "legend")
@@ -398,7 +406,7 @@ function drawLegend(containerId, beginRange = "", endRange = "", beginColor = ""
         .attr("x", x1 + '%')
         .attr("y", 2 * y1 + '%')
         .attr("dy", 0)
-        .text(overiewRangeMin + "%");
+        .text(beginRange + "%");
 
     svg.append("text")
         .attr("font-size", "1vw")
@@ -410,7 +418,7 @@ function drawLegend(containerId, beginRange = "", endRange = "", beginColor = ""
         .attr("x", x1 + '%')
         .attr("y", y1 + 0.08 * y1 + '%')
         .attr("dy", 0)
-        .text("+" + overiewRangeMax + "%");
+        .text("+" + endRange + "%");
 };
 
 // view details
@@ -437,12 +445,12 @@ function createDetailPage() {
     let overviewLegend = document.getElementById("overview-legend");
 
     if (typeof(mainPanel) != 'undefined' && mainPanel != null) {
-        mainPanel.remove();
-        overviewLegend.remove();
+        mainPanel.style.width = "85%";
+        mainPanel.innerHTML = "";
+        overviewLegend.style.display = "none";
     };
 
     // draw the structure of the detailed page
-    let body = document.getElementsByTagName("BODY")[0];
     let lobDetailed = document.createElement("div");
     let assetLiquidity = document.createElement("div");
     let liquidityCorrelation = document.createElement("div");
@@ -464,10 +472,10 @@ function createDetailPage() {
     assetCorrMarket.style.width = "45%";
     assetCorrMarket.style.height = "40%";
 
-    body.appendChild(lobDetailed);
-    body.appendChild(assetLiquidity);
-    body.appendChild(liquidityCorrelation);
-    body.appendChild(assetCorrMarket);
+    mainPanel.appendChild(lobDetailed);
+    mainPanel.appendChild(assetLiquidity);
+    mainPanel.appendChild(liquidityCorrelation);
+    mainPanel.appendChild(assetCorrMarket);
 
 };
 
@@ -491,56 +499,60 @@ function drawLOB(inputDate, selectedStocks) {
             let sideMenu = document.createElement("div");
 
             panel.id = element.split(" -- ")[1] + "-panel";
-            panel.style.width = "90%";
+            panel.style.width = "80%";
             panel.style.height = "100%";;
             panel.style.display = "inline-block";
 
             sideMenu.id = element.split(" -- ")[1] + "-sideMenu";
-            sideMenu.style.width = "10%";
+            sideMenu.style.width = "20%";
             sideMenu.style.height = "100%";
             sideMenu.style.display = "inline-block";
             sideMenu.style.float = "right";
+            sideMenu.style.position = "relative";
 
 
-            figTick.style.margin = "auto";
-            figTick.className = "figTick";
-            figTick.id = element.split(" -- ")[1] + "-figTick";
-            figTick.style.width = "5%";
-            figTick.style.height = "50%";
-            figTick.style.display = "inline-block";
-            figTick.style.float = "right";
-            figTick.style.marginTop = "2%";
+            // figTick.style.margin = "auto";
+            // figTick.className = "figTick";
+            // figTick.id = element.split(" -- ")[1] + "-figTick";
+            // figTick.style.width = "25%";
+            // figTick.style.height = "100%";
+            // figTick.style.display = "inline-block";
+            // figTick.style.float = "right";
+            // figTick.style.marginTop = "15%";
+            // figTick.style.position = "relative";
 
             figLegend.style.margin = "auto";
             figLegend.className = "figLegend";
             figLegend.id = element.split(" -- ")[1] + "-figLegend";
-            figLegend.style.width = "15%";
+            figLegend.style.width = "100%";
             figLegend.style.height = "100%";
             figLegend.style.display = "inline-block";
             figLegend.style.float = "right";
+            figLegend.style.position = "relative";
 
             innerFig.style.margin = "auto";
             innerFig.className = "innerFig";
             innerFig.id = element.split(" -- ")[1] + "-innerFig";
-            innerFig.style.width = "80%";
-            innerFig.style.height = "90%";
+            innerFig.style.width = "90%";
+            innerFig.style.height = "85%";
 
             stockLobVizText.className = "stockLobVizText";
             stockLobVizText.innerText = element.split(" -- ")[0];
             stockLobVizText.id = element.split(" -- ")[1] + '-text';
             stockLobVizText.style.margin = "auto";
             stockLobVizText.style.width = "90%";
-            stockLobVizText.style.height = "10%";
+            stockLobVizText.style.height = "15%";
             stockLobVizText.style.textAlign = "center";
             stockLobVizText.style.fontSize = "0.8vw";
             stockLobVizText.style.fontFamily = "Oswald";
 
-            stockLobViz.id = element.split(" -- ")[1];
+            stockLobViz.id = element.split(" -- ")[1] + "-lob";
             stockLobViz.className = "stockLobViz";
             stockLobViz.style.width = "100%";
             stockLobViz.style.height = 100 / (selectedStocks.length) + "%";
             stockLobViz.style.margin = "auto";
             stockLobViz.onclick = function() { console.log("clicked on lob") };
+            stockLobViz.style.position = "relative";
 
 
             lobPanel.appendChild(stockLobViz);
@@ -552,7 +564,7 @@ function drawLOB(inputDate, selectedStocks) {
             panel.appendChild(innerFig);
 
             sideMenu.appendChild(figLegend);
-            sideMenu.appendChild(figTick);
+            // sideMenu.appendChild(figTick);
 
             // for real sample add inputDate to the function
             drawLobDetail(element.split(" -- ")[1]);
@@ -641,7 +653,7 @@ function drawLobDetail(name, inputDate = "2019-01-03") {
 
         // add axis y
         let y = d3.scaleBand()
-            .range([0.5 * height_num, 0])
+            .range([0.8 * height_num, 0])
             .domain(groups);
         // svg.append("g")
         //     .attr("id", "yaxis")
@@ -723,32 +735,34 @@ function drawLobDetail(name, inputDate = "2019-01-03") {
 
 
         // create tick
-        let figTick = document.getElementById(name + "-figTick");
+        // let figTick = document.getElementById(name + "-figTick");
 
-        let tick1 = document.createElement("div");
-        tick1.className = "figTick";
-        tick1.id = name + "-figTick-1";
-        tick1.style.width = "100%";
-        tick1.style.height = "40%";
-        // tick1.innerText = groups[1];
-        tick1.style.textAlign = "center";
-        tick1.style.fontSize = "0.8vw";
-        tick1.style.fontFamily = "Oswald";
-        tick1.innerHTML = "<div style='margin-top: 160%;'> " + groups[1] + "</div>";
+        // let tick1 = document.createElement("div");
+        // tick1.className = "figTick";
+        // tick1.id = name + "-figTick-1";
+        // tick1.style.width = "100%";
+        // tick1.style.height = "50%";
+        // // tick1.innerText = groups[1];
+        // tick1.style.textAlign = "left";
+        // tick1.style.fontSize = "0.8vw";
+        // tick1.style.fontFamily = "Oswald";
+        // tick1.style.position = "relative";
+        // tick1.innerHTML = "<div style='position: absolute; top:50%;'> " + groups[1] + "</div>";
 
-        let tick2 = document.createElement("div");
-        tick2.className = "figTick";
-        tick2.id = name + "-figTick-2";
-        tick2.style.width = "100%";
-        tick2.style.height = "50%";
-        // tick2.innerText = groups[0];
-        tick2.style.textAlign = "center";
-        tick2.style.fontSize = "0.8vw";
-        tick2.style.fontFamily = "Oswald";
-        tick2.innerHTML = "<div style='margin-top: 100%;'> " + groups[0] + "</div>";
+        // let tick2 = document.createElement("div");
+        // tick2.className = "figTick";
+        // tick2.id = name + "-figTick-2";
+        // tick2.style.width = "100%";
+        // tick2.style.height = "50%";
+        // // tick2.innerText = groups[0];
+        // tick2.style.textAlign = "left";
+        // tick2.style.fontSize = "0.8vw";
+        // tick2.style.fontFamily = "Oswald";
+        // tick1.style.position = "relative";
+        // tick2.innerHTML = "<div style='position: absolute; top:50%;'> " + groups[0] + "</div>";
 
-        figTick.appendChild(tick1);
-        figTick.appendChild(tick2);
+        // figTick.appendChild(tick1);
+        // figTick.appendChild(tick2);
 
 
 
@@ -786,7 +800,7 @@ function drawLobDetail(name, inputDate = "2019-01-03") {
 
         // volume
         let figLegendVolume = document.createElement("div");
-    }, 1000);
+    }, 2000);
 
 };
 
