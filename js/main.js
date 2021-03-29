@@ -193,8 +193,21 @@ function dateFilter(e) {
 
     if (validation) {
         date = innerDate;
+
+        let inputDate = document.getElementById("tradeDate");
+        inputDate.value = innerDate;
+
+        let mainPanel = document.getElementById('main-panel');
+        mainPanel.style.width = "80%";
+
+        let overviewLegend = document.getElementById("overview-legend");
+        overviewLegend.style.display = "";
+        overviewLegend.innerHTML = "";
+        drawLegend("overview-legend");
+
         viewOverview(date, all_companies);
         drawOverview(date, all_companies);
+
     } else {
         alert("Please enter the valid date");
         let inputDate = document.getElementById("tradeDate");
