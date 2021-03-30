@@ -39,6 +39,12 @@
             </div>
         </div>
 
+        <div style="width: 80%; margin-left: 10%; font-size: 0.8vw; font-family: 'Oswald'; margin-top: 12%; text-align: left;">
+            <label for="blockSize">Bin Size:</label>
+            <!-- The value in input is just a place holder right now. We will put more detail in future -->
+            <input type="range" id="blockSize" class="binSize" name="blockSize" min="5" max="50" oninput="binChange(value)" value="35" step="1">
+            <output for="blockSize" id="outputBinSize" style="font-size: 0.8vw; font-family: 'Oswald';">35</output>
+        </div>
 
         <div id="date">
             <!-- The value in input is just a place holder right now. We will put more detail in future -->

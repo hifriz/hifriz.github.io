@@ -80,6 +80,7 @@ function addToList(stockName) {
         selectedStocks = [...new Set(selectedStocks)];
         cleanMenu();
         fetchData(stockName);
+
     }
 
     updateSelectedStocks();
@@ -106,6 +107,8 @@ function searchStocks() {
         let searchElement = inputElement[i].innerHTML.toUpperCase();
         if (searchElement.indexOf(filter) > -1) {
             inputElement[i].style.display = "";
+            // let filterElement = document.getElementById(searchElement.split(" -- ")[1]);
+            // filterElement.style.border = "3px solid #c61aff";
         } else {
             inputElement[i].style.display = "none";
         };
@@ -186,8 +189,6 @@ function dateFilter(e) {
     let month = splitDate[1];
     let day = splitDate[2];
 
-    console.log(innerDate);
-
     // check the validation of the date
     let validation = (2021 > year) && (year > 2016) && (13 > month) && (month >= 01) && (31 >= day) && (day >= 01);
 
@@ -207,6 +208,28 @@ function dateFilter(e) {
 
         viewOverview(date, all_companies);
         drawOverview(date, all_companies);
+
+    } else {
+        alert("Please enter the valid date");
+        let inputDate = document.getElementById("tradeDate");
+        inputDate.value = "";
+    };
+
+};
+
+
+function binChange(inputValue) {
+    let splitDate = date.split("-");
+    let year = splitDate[0];
+    let month = splitDate[1];
+    let day = splitDate[2];
+
+    let validation = (2021 > year) && (year > 2016) && (13 > month) && (month >= 01) && (31 >= day) && (day >= 01);
+
+    if (validation) {
+        document.getElementById("outputBinSize").innerHTML = inputValue;
+        viewOverview(date, all_companies);
+        drawOverview(date, all_companies, inputValue);
 
     } else {
         alert("Please enter the valid date");
@@ -240,13 +263,13 @@ function viewOverview(inputDate, companies) {
 };
 
 // draw overview
-function drawOverview(inputDate, companies) {
+function drawOverview(inputDate, companies, overviewBinSize = 35) {
     let items = document.getElementsByClassName("stockViz");
     for (i = 0; i < items.length; i++) {
 
 
         // this data is sample data that is generated for showing application of our viz
-        let data = [Array.from({ length: 50 }, () => Math.floor(Math.random() * 6 - 3))];
+        let data = [Array.from({ length: overviewBinSize }, () => Math.floor(Math.random() * 6 - 3))];
 
         // Set some base properties.
         // Some come from an options object
@@ -337,8 +360,8 @@ function drawOverview(inputDate, companies) {
 
         cell
             .append("rect")
-            .attr("width", x.bandwidth() - 0.3)
-            .attr("height", y.bandwidth() - 0.3)
+            .attr("width", x.bandwidth())
+            .attr("height", y.bandwidth())
 
         row
             .selectAll(".cell")

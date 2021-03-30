@@ -275,3 +275,9 @@
     float: left;
     background-color: #faf9f9;
 }
+
+.binSize {
+    width: 50%;
+    height: 1%;
+    margin-left: 10%;
+}

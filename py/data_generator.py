@@ -48,3 +48,15 @@ for symbol in all_stocks["Symbol"]:
 
 with open("./data/sampleData.json", "w") as f:
     json.dump(data, f)
+
+
+tsla = pd.read_csv("./data/TSLA.csv", header=0)
+
+tsla_price = list(tsla["Adj Close"])
+
+ret = [0]
+for i in range(1, len(tsla_price)):
+    ret.append(100*(tsla_price[i] - tsla_price[i-1])/tsla_price[i-1])
+
+ret = [x for x in ret if (x > -3) and (x < 2)]
+print(ret)
