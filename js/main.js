@@ -228,11 +228,13 @@ function binChange(inputValue) {
 
     if (validation) {
         document.getElementById("outputBinSize").innerHTML = inputValue;
+        document.getElementById("blockSize").value = inputValue;
         viewOverview(date, all_companies);
         drawOverview(date, all_companies, inputValue);
 
     } else {
         alert("Please enter the valid date");
+        document.getElementById("blockSize").value = 35;
         let inputDate = document.getElementById("tradeDate");
         inputDate.value = "";
     };
